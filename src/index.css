@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.vertical-timeline-element-icon {
+  position: absolute !important;
+  z-index: 2;          /* sits above the line */
+}
+
+.vertical-timeline::before {
+  z-index: 1 !important;  /* behind the icon */
+}

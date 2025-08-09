@@ -1,0 +1,38 @@
+export type AssetType = "pdf" | "image";
+
+export type Certificate = {
+    id: string;
+    title: string;
+    issuer: string;
+    date: string;
+    assetType: AssetType;
+    assetUrl: string;
+    verifyUrl?: string;
+    thumbUrl?: string;
+    description?:string;
+}
+
+export const certificates: Certificate[] = [
+{
+    id: "ibm-data-analyst",
+    title: "IBM Data Analyst",
+    issuer: "Coursera",
+    date: "2023-09-13",
+    assetType: "pdf",
+    assetUrl: "/public/assets/certificates/ibm-data-analyst.pdf",
+    thumbUrl: "/public/assets/certificates/ibm-data-analyst.png", 
+    verifyUrl: "https://www.coursera.org/account/accomplishments/professional-cert/GDFEJFNWV4M8",
+    description: "Completed different topics in data analytics",
+},
+{
+    id: "idtech-ml",
+    title: "Python Coding: Machine Learning and Data Science",
+    issuer: "The Univeristy of Pennsylvania Arts & Sciences High School Programs in collaboration with iD Tech",
+    date: "2023-07-29",
+    assetType: "image",
+    assetUrl: "/public/assets/certificates/id-tech-machine-learning-and-data-science.pdf",
+    thumbUrl: "/public/assets/certificates/id-tech-machine-learning-and-data-science.png",
+    verifyUrl: "https://images.credential.net/embed/02ybwvtu_1743533401973.png",
+    description: "Completed course in machine learning and data science",
+}
+]
