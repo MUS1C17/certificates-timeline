@@ -1,5 +1,6 @@
 import { certificates } from "../data/certificates";
 import TimelineView from "../components/TimelineView";
+import Footer from "../components/Footer.tsx"
 
 export default function Home() {
     return (
@@ -13,9 +14,7 @@ export default function Home() {
                 <TimelineView items={certificates} />
             </section>
 
-            <footer className="mt-12 text-sm opacity-60 text-right">
-                Last updated: {new Date().toDateString()}
-            </footer>
+            <Footer />
         </main>
     );
 }
