@@ -109,8 +109,6 @@ export default function TimelineView({ items }: Props) {
                                 <h3 className="card-title text-xl">{cert.title}</h3>
                                 <p className="text-sm text-base-content/70">
                                     <span className="font-medium text-base-content">{cert.issuer}</span>
-                                    {"-"}
-                                    <span>{formatDate(cert.date)}</span>
                                 </p>
 
                                 {cert.description && <p className="mt-2 line-clamp-2">{cert.description}</p>}
@@ -195,14 +193,14 @@ export default function TimelineView({ items }: Props) {
                                     />
                                     )}
                                     <div className="mt-2 flex w-full md:justify-end gap-3">
-                                        <a href={selected.assetUrl} target="_blank" rel="noreferrer" className="btn btn-outline btn-sm" title="Open original">
+                                        <a href={selected.assetUrl} target="_blank" rel="noreferrer" className="btn btn-outline btn-lg" title="Open original">
                                             View
                                         </a>
-                                        <a href={selected.assetUrl} download className="btn btn-primary btn-sm" title="Download original">
+                                        <a href={selected.assetUrl} download className="btn btn-primary btn-lg" title="Download original">
                                             Download
                                         </a>
                                         {selected.verifyUrl && (
-                                            <a href={selected.verifyUrl} target="_blank" rel="noreferrer" className="btn btn-ghost btn-sm" title="Verify certificate">
+                                            <a href={selected.verifyUrl} target="_blank" rel="noreferrer" className="underline hover:text-primary-focus text-lg text-primary btn-lg" title="Verify certificate">
                                             Verify
                                             </a>
                                         )}

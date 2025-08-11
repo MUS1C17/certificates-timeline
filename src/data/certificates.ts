@@ -22,7 +22,7 @@ export const certificates: Certificate[] = [
     assetUrl: "/public/assets/certificates/ibm-data-analyst.pdf",
     thumbUrl: "/public/assets/certificates/ibm-data-analyst.png", 
     verifyUrl: "https://www.coursera.org/account/accomplishments/professional-cert/GDFEJFNWV4M8",
-    description: "Completed different topics in data analytics",
+    description: "Completed the IBM Data Analyst Professional Certificate on Coursera, a 9-course program covering core topics in data analytics. Gained hands-on experience with data analysis tools and techniques, including Excel, SQL, Python, Jupyter Notebooks, and Cognos Analytics. Developed skills in data visualization, dashboard creation, and real-world data analysis, preparing for entry-level data analytics roles.",
 },
 {
     id: "idtech-ml",
@@ -33,7 +33,7 @@ export const certificates: Certificate[] = [
     assetUrl: "/public/assets/certificates/id-tech-machine-learning-and-data-science.pdf",
     thumbUrl: "/public/assets/certificates/id-tech-machine-learning-and-data-science.png",
     verifyUrl: "https://images.credential.net/embed/02ybwvtu_1743533401973.png",
-    description: "Completed course in machine learning and data science",
+    description: "Completed Python Coding: Machine Learning and Data Science program through the University of Pennsylvania Arts & Sciences High School Programs in collaboration with iD Tech. Gained foundational and intermediate skills in Python programming, data analysis, and machine learning concepts, including supervised and unsupervised learning, model evaluation, and real-world dataset applications.",
 },
 {
     id: "idtech-m1l",
