@@ -1,6 +1,7 @@
 import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import type { Certificate } from "../data/certificates";
+import { GrCertificate } from "react-icons/gr";
 import { FileDown, FileText, Image as ImageIcon, ExternalLink, X } from "lucide-react";
 import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
@@ -56,7 +57,7 @@ export default function TimelineView({ items }: Props) {
         <>
             <VerticalTimeline animate={true}>
                 {sorted.map((cert) => {
-                    const icon = cert.assetType === "pdf" ? <FileText /> : <ImageIcon />;
+                    const icon = cert.assetType === "pdf" ? <GrCertificate /> : <ImageIcon />;
 
                     const iconStyle: CSSProperties  =
                         cert.assetType === "pdf"
@@ -92,7 +93,7 @@ export default function TimelineView({ items }: Props) {
                             role="button"
                             tabIndex={0}
                             onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setSelected(cert)}
-                            whileHover={{scale: 1.2}}
+                            whileHover={{scale: 1.05}}
                             transition={{type: "spring", stiffness: 380, damping: 28}}
                             className="
                             group
