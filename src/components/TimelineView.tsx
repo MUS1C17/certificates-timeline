@@ -2,7 +2,7 @@ import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeli
 import "react-vertical-timeline-component/style.min.css";
 import type { Certificate } from "../data/certificates";
 import { GrCertificate } from "react-icons/gr";
-import { FileDown, FileText, Image as ImageIcon, ExternalLink, X } from "lucide-react";
+import {Image as ImageIcon, X } from "lucide-react";
 import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,8 +21,7 @@ type Props = {
   items: Certificate[];
 };
 
-
-
+const withBase = (p?: string) => (p ? import.meta.env.BASE_URL + p : undefined);
 
 function formatDate(iso: string): string {
     const [y, m, d] = iso.split("-").map(Number);
@@ -33,10 +32,8 @@ function formatDate(iso: string): string {
 export default function TimelineView({ items }: Props) {
     const sorted = [...items].sort((a,b) => b.date.localeCompare(a.date));
     const [selected, setSelected] = useState<Certificate | null>(null);
-    const [ready, setReady] = useState(false);
 
     const closeModal = () => {
-        setReady(false);
         requestAnimationFrame(() => setSelected(null));
     };
 
@@ -45,10 +42,8 @@ export default function TimelineView({ items }: Props) {
         //const onKey = (e: KeyboardEvent) => e.key === "Escape" && setSelected(null);
         if (selected) {
             document.body.style.overflow = "hidden";
-            const t = setTimeout(() => setReady(true), 250);
             return () => {
-                clearTimeout(t);
-                setReady (false);
+
             };
         }
     }, [selected]);
@@ -176,7 +171,7 @@ export default function TimelineView({ items }: Props) {
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                                <div className="spacy-y-4 max-h-[75vh] overflow-auto pr-2">
+                                <div className="space-y-4 max-h-[75vh] overflow-auto pr-2">
                                     {selected.description && (
                                         <p className="text-base leading-relaxed">{selected.description}</p>
                                     )}
@@ -194,14 +189,14 @@ export default function TimelineView({ items }: Props) {
                                     />
                                     )}
                                     <div className="mt-2 flex w-full md:justify-end gap-3">
-                                        <a href={selected.assetUrl} target="_blank" rel="noreferrer" className="btn btn-outline btn-lg" title="Open original">
+                                        <a href={withBase(selected.assetUrl)} target="_blank" rel="noreferrer" className="btn btn-outline btn-lg" title="Open original">
                                             View
                                         </a>
-                                        <a href={selected.assetUrl} download className="btn btn-primary btn-lg" title="Download original">
+                                        <a href={withBase(selected.assetUrl)} download className="btn btn-primary btn-lg" title="Download original">
                                             Download
                                         </a>
                                         {selected.verifyUrl && (
-                                            <a href={selected.verifyUrl} target="_blank" rel="noreferrer" className="underline hover:text-primary-focus text-lg text-primary btn-lg" title="Verify certificate">
+                                            <a href={withBase(selected.verifyUrl)} target="_blank" rel="noreferrer" className="underline hover:text-primary-focus text-lg text-primary btn-lg" title="Verify certificate">
                                             Verify
                                             </a>
                                         )}
