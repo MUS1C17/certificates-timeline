@@ -21,7 +21,11 @@ type Props = {
   items: Certificate[];
 };
 
-const withBase = (p?: string) => (p ? import.meta.env.BASE_URL + p : undefined);
+function isAbsoluteUrl(url?: string) {
+  return !!url && /^(?:[a-z]+:)?\/\//i.test(url);
+}
+
+const withBase = (p?: string) => (p ? (isAbsoluteUrl(p) ? p : import.meta.env.BASE_URL + p) : undefined);
 
 function formatDate(iso: string): string {
     const [y, m, d] = iso.split("-").map(Number);
@@ -39,18 +43,25 @@ export default function TimelineView({ items }: Props) {
 
     // Lock background scroll when modal open, and add ESC to close
     useEffect(() => {
-        //const onKey = (e: KeyboardEvent) => e.key === "Escape" && setSelected(null);
-        if (selected) {
-            document.body.style.overflow = "hidden";
-            return () => {
+        if (!selected) return;
 
-            };
-        }
+        const onKey = (e: KeyboardEvent) => {
+        if (e.key === "Escape") closeModal();
+        };
+
+        const prevOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        window.addEventListener("keydown", onKey);
+
+        return () => {
+        window.removeEventListener("keydown", onKey);
+        document.body.style.overflow = prevOverflow;
+        };
     }, [selected]);
 
     return(
         <>
-            <VerticalTimeline animate={true}>
+            <VerticalTimeline animate>
                 {sorted.map((cert) => {
                     const icon = cert.assetType === "pdf" ? <GrCertificate /> : <ImageIcon />;
 
@@ -90,17 +101,7 @@ export default function TimelineView({ items }: Props) {
                             onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setSelected(cert)}
                             whileHover={{scale: 1.05}}
                             transition={{type: "spring", stiffness: 380, damping: 28}}
-                            className="
-                            group
-                            rounded-2xl
-                            bg-base-100/90
-                            outline outline-2 outline-white
-                            p-5
-                            shadow-sm
-                            transition-transform duration-200 ease-out
-                            hover:shadow-lg
-                            will-change-transform
-                            "
+                            className="group rounded-2xl bg-base-100/90 outline outline-2 outline-white p-5 shadow-sm transition-transform duration-200 ease-out hover:shadow-lg will-change-transform"
                             >
                                 <h3 className="card-title text-xl">{cert.title}</h3>
                                 <p className="text-sm text-base-content/70">
@@ -111,10 +112,10 @@ export default function TimelineView({ items }: Props) {
 
                                 {(cert.thumbUrl || cert.assetType === "image") && (
                                     <motion.img
-                                    src={cert.thumbUrl ?? cert.assetUrl}
+                                    src={withBase(cert.thumbUrl ?? cert.assetUrl)}
                                     alt={`${cert.title} thumbnail`}
-                                    className="mt-4 rounded-xl border border-base-300 w-full h-auto transition-transform duration-200 group-hover:scale-[1.02]"
-                                    draggable="false"
+                                    className="mt-4 rounded-xl border border-base-300 w-full h-auto transition-transform duration-200 group-hover:scale-[1.05]"
+                                    draggable={false}
                                     />
                                 )}
                                 <div className="mt-3 text-xs opacity-70">(Click card to view details)</div>
@@ -124,7 +125,7 @@ export default function TimelineView({ items }: Props) {
                     })}
             </VerticalTimeline>
             {/* MODAL (animated) */}
-            <AnimatePresence mode="wait" initial={false} onExitComplete={() => {document.body.style.overflow=""}}>
+            <AnimatePresence mode="wait" initial={false}>
                 {selected && (
                     <>
                         {/* Backdrop */}
@@ -134,13 +135,12 @@ export default function TimelineView({ items }: Props) {
                         animate="show"
                         variants={backdropVariants}
                         exit="hidden"
-                        onClick={() => closeModal()}
+                        onClick={closeModal}
                         />
                         {/* Morphing container — same layoutId as the card */}
                         <motion.div 
                         layoutId={`card-${selected.id}`}
-                        className="fixed z-50 inset-3 md:inset-14 lg:inset-20
-                        rounded-2xl bg-base-100 border border-base-300 shadow-xl p-5 overflow-auto"
+                        className="fixed z-50 inset-3 md:inset-14 lg:inset-20 rounded-2xl bg-base-100 border border-base-300 shadow-xl p-5 overflow-auto"
                         role="dialog"
                         variants={modalVariants}
                         initial="hidden"
@@ -178,11 +178,11 @@ export default function TimelineView({ items }: Props) {
                                 </div>
                                 <div className="flex flex-col items-center md:items-end gap-3">
                                     {selected.assetType === "pdf" ? (
-                                        <img  src={selected.thumbUrl} alt={`${selected.title} preview`} 
+                                        <img  src={withBase(selected.thumbUrl)} alt={`${selected.title} preview`} 
                                         className="max-h-[70vh] w-auto rounded-xl border border-base-300" draggable={false} loading="eager"
                                         />
                                     ):(
-                                    <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={selected.assetUrl}
+                                    <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={withBase(selected.assetUrl)}
                                         alt={selected.title}
                                         className="max-h-[70vh] w-auto rounded-xl border border-base-300"
                                         draggable={false}
