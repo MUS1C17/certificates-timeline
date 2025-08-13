@@ -10,3 +10,7 @@
 .vertical-timeline::before {
   z-index: 1 !important;  /* behind the icon */
 }
+
+a:focus {
+  outline-offset: 3px;
+}
