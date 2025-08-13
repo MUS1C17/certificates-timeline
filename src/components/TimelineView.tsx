@@ -7,14 +7,17 @@ import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Shared timing so open/close feel identical
+const TIMING = { duration: 0.28, ease: [0.22, 1, 0.36, 1] } as const;
+
 const backdropVariants = {
-  hidden: { opacity: 0, transitionEnd: { pointerEvents: "none" as const } },
-  show:   { opacity: 1, transitionEnd: { pointerEvents: "auto" as const } },
+  hidden: { opacity: 0, transition: TIMING, transitionEnd: { pointerEvents: "none" as const } },
+  show: { opacity: 1, transition: TIMING, transitionEnd: { pointerEvents: "auto" as const } },
 };
 
 const modalVariants = {
-  hidden: { opacity: 0, scale: 0.98, transitionEnd: { pointerEvents: "none" as const } },
-  show:   { opacity: 1, scale: 1,     transitionEnd: { pointerEvents: "auto" as const } },
+  hidden: { opacity: 0, scale: 0.98, transition: TIMING, transitionEnd: { pointerEvents: "none" as const } },
+  show: { opacity: 1, scale: 1, transition: TIMING, transitionEnd: { pointerEvents: "auto" as const } },
 };
 
 type Props = {
