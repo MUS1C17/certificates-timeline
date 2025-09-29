@@ -36,14 +36,13 @@ export const certificates: Certificate[] = [
     description: "Completed Python Coding: Machine Learning and Data Science program through the University of Pennsylvania Arts & Sciences High School Programs in collaboration with iD Tech. Gained foundational and intermediate skills in Python programming, data analysis, and machine learning concepts, including supervised and unsupervised learning, model evaluation, and real-world dataset applications.",
 },
 {
-    id: "idtech-m1l",
-    title: "Python Coding: Machine Learning and Data Science",
-    issuer: "The Univeristy of Pennsylvania Arts & Sciences High School Programs in collaboration with iD Tech",
-    date: "2023-07-29",
+     id: "flex",
+    title: "FLEX: Future Leaders Excange Program",
+    issuer: "The U.S. Department of State",
+    date: "2023",
     assetType: "pdf",
-    assetUrl: "public/assets/certificates/id-tech-machine-learning-and-data-science.pdf",
-    thumbUrl: "public/assets/certificates/id-tech-machine-learning-and-data-science.png",
-    verifyUrl: "https://images.credential.net/embed/02ybwvtu_1743533401973.png",
-    description: "Completed course in machine learning and data science",
+    assetUrl: "assets/certificates/flex.pdf",
+    thumbUrl: "assets/certificates/flex.png",
+    description: "Awarded a U.S. Department of State Future Leaders Exchange (FLEX) Program scholarship, spending an academic year in the United States to build cross-cultural understanding, leadership skills, and community engagement."
 }
 ]
